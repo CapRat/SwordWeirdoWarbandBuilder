@@ -17,7 +17,7 @@ function removeDoublesFromIDObj(objArray: { id: String }[]) {
   var availableIds: String[] = []
   var filteredAllProps = []
   for (const obj of objArray) {
-    console.log(obj)
+    if (obj == undefined) continue
     if (!availableIds.find(x => obj.id == x)) {
       availableIds.push(obj.id)
       filteredAllProps.push(obj)
