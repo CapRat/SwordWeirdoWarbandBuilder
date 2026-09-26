@@ -11,6 +11,16 @@ const { weaponProfiencies = [],additionalWeapons=[], showNotSelectableWeapons=fa
 
 let swordRepo = useSwordWeirdosRepo()
 
+const search = ref("")
+const searchField = ref()
+function focusSearch() {
+    searchField.value?.$el.querySelector("input")?.focus()
+}
+const filteredWeapons = computed(() => {
+    const term = search.value?.trim().toLowerCase() ?? ""
+    return term ? swordRepo.weapons.filter(w => w.name.toLowerCase().includes(term)) : swordRepo.weapons
+})
+
 
 function selectWeapon(myWeapon) {
     if (!weaponsModel.value?.includes(myWeapon.id)) {
@@ -34,7 +44,7 @@ function isValidWeapon(myWeapon){
 </script>
 
 <template>
-    <v-dialog max-width="500">
+    <v-dialog max-width="500" @after-enter="focusSearch" @after-leave="search = ''">
         <template v-slot:activator="{ props: activatorProps }">
             <v-text-field class="cursor-pointer" color="primary" :readonly="true" @click="" v-bind="activatorProps"
                 label="weapon" variant="underlined" item-title="name" item-value="name" item-children="effect"
@@ -45,15 +55,17 @@ function isValidWeapon(myWeapon){
         <template v-slot:default="{ isActive }">
            
             <v-card>
-                <v-col class="ma-0 pa-0">
+                <div class="d-flex align-center">
                   <v-btn icon="mdi-arrow-left" @click="isActive.value = false" variant="plain"></v-btn>
-                  <v-btn icon="mdi-information-variant" @click="showDetails = !showDetails"  :color="showDetails ? 'primary' : ''" class="position-absolute right-0" variant="plain"></v-btn>
-                </v-col>
+                  <v-text-field v-model="search" placeholder="Search..." prepend-inner-icon="mdi-magnify"
+                        density="compact" variant="plain" hide-details clearable class="mx-2" ref="searchField"></v-text-field>
+                  <v-btn icon="mdi-information-variant" @click="showDetails = !showDetails"  :color="showDetails ? 'primary' : ''" variant="plain"></v-btn>
+                </div>
                   <v-divider></v-divider>
                    
           
                 <v-container class="scrollable">
-                    <v-row v-for="myWeapon in swordRepo.weapons"   >
+                    <v-row v-for="myWeapon in filteredWeapons"   >
                         <v-col v-if="isValidWeapon(myWeapon) || showNotSelectableWeapons" >
                             <v-card @click="selectWeapon(myWeapon)" density="compact"
                                 :color="weaponsModel?.includes(myWeapon.id) ? 'primary' : ''" width="auto"
