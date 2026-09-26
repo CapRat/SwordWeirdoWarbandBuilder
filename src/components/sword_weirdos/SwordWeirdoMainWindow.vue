@@ -17,6 +17,7 @@ const showRepoUploadDialog = ref(false)
 
 const index = ref(-1)
 const preview = ref(false)
+const previewLight = ref(true)
 const printRef = ref(null)
 function callPrint() {
   printRef.value?.print()
@@ -96,6 +97,8 @@ function download(filename, text) {
     <v-app-bar-nav-icon></v-app-bar-nav-icon>
   </template>
     <template v-slot:append>
+      <v-btn v-if="preview" :icon="previewLight ? 'mdi-weather-night' : 'mdi-weather-sunny'"
+        @click="previewLight = !previewLight" :title="previewLight ? 'Dark preview' : 'Light preview'"></v-btn>
       <v-btn v-if="preview" icon="mdi-printer" @click="callPrint()"></v-btn>
       <v-btn @click="preview = !preview" icon="mdi-eye" :color="preview ? 'primary' : ''"></v-btn>
       <v-menu width="400">
@@ -155,7 +158,9 @@ function download(filename, text) {
 
 
   </v-container>
-  <PrintPreview v-if="preview" v-model="warbandModel" ref="printRef"></PrintPreview>
+  <v-theme-provider v-if="preview" :theme="previewLight ? 'light' : 'dark'" with-background>
+    <PrintPreview v-model="warbandModel" ref="printRef"></PrintPreview>
+  </v-theme-provider>
 
 </template>
 <style>
