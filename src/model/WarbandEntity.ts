@@ -156,12 +156,12 @@ export default class WarbandEntity {
         return [...this.classes, ...(this.getModifiers().classes)]
     }
     public getComputedSpells() {
-        return [...this.spells, ...(this.getModifiers().spells)].map(spellID => swordRepo.getSpellWithID(spellID))
+        return [...this.spells, ...(this.getModifiers().spells)].map(spellID => swordRepo.getSpellWithID(spellID)).filter(s => s != undefined)
     }
 
 
     public getComputedWeapons() {
-        return this.weapons.map(id => swordRepo.getWeaponWithID(id))
+        return this.weapons.map(id => swordRepo.getWeaponWithID(id)).filter(w => w != undefined)
 
     }
 
@@ -174,17 +174,17 @@ export default class WarbandEntity {
                     properties.push(weaponMod.weaponProperty)
                 }
                 else if (weaponMod.state == WeaponModState.Delete) {
-                    const index = weapon?.properties.indexOf(weaponMod.weaponProperty)
-                    if (index != undefined) {
+                    const index = properties.indexOf(weaponMod.weaponProperty)
+                    if (index !== -1) {
                         properties.splice(index, 1)
                     }
                 }
             }
         }
-        return properties.map(id => swordRepo.getWeaponsPropertyWithID(id))
+        return properties.map(id => swordRepo.getWeaponsPropertyWithID(id)).filter(p => p != undefined)
     }
     public getComputedManeuver(weapon) {
-        return [...this.getModifiers().maneuver, ...weapon.maneuver].map(maneuverID => swordRepo.getManeuverWithID(maneuverID))
+        return [...this.getModifiers().maneuver, ...weapon.maneuver].map(maneuverID => swordRepo.getManeuverWithID(maneuverID)).filter(m => m != undefined)
     }
 
 

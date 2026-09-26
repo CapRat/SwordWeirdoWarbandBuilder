@@ -17,7 +17,7 @@ function removeDoublesFromIDObj(objArray: { id: String }[]) {
   var availableIds: String[] = []
   var filteredAllProps = []
   for (const obj of objArray) {
-    console.log(obj)
+    if (obj == undefined) continue
     if (!availableIds.find(x => obj.id == x)) {
       availableIds.push(obj.id)
       filteredAllProps.push(obj)
@@ -137,6 +137,41 @@ defineExpose({ print });
 </template>
 
 <style>
+/* On-screen preview: Bootstrap is only loaded for the PDF, so mirror its table/grid basics here */
+@media screen {
+  #toPrint table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  #toPrint th,
+  #toPrint td {
+    border: 1px solid rgba(var(--v-theme-on-surface), 0.4);
+    padding: 4px 6px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  #toPrint thead th {
+    background: rgba(var(--v-theme-on-surface), 0.08);
+  }
+
+  #toPrint .list-unstyled {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  #toPrint .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  #toPrint .col-md-4 {
+    flex: 1 1 250px;
+  }
+}
+
 /* ================== Alle Druck-Stile ================== */
 @media print {
   /* Seiten-Einstellungen */

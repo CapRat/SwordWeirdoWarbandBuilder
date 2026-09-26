@@ -215,7 +215,7 @@
             ],
             "weapon-mod": [
                 {
-                    "name": "sickles",
+                    "name": "sickle",
                     "del-prop": "unwieldy"
                 }
             ]
@@ -353,7 +353,7 @@
             "short-effect": "",
             "weapon-mod": [
                 {
-                    "name": "material-arts",
+                    "name": "martial-arts",
                     "del-prop": "weak"
                 }
             ]
@@ -1762,7 +1762,7 @@
             "effect": "+ 1dt to your Will roll"
         },
         {
-            "id": "enchance",
+            "id": "enhance",
             "name": "Enhance",
             "use_when": "this model uses an Interact action on a model in BtB contact",
             "effect": "The next roll this model makes gains + 1dt."
@@ -1904,7 +1904,7 @@
             "name": "Extraplanar",
             "effect": "The leader gains the Flyer class.",
             "short-effect": "",
-            "classes": "flyer"
+            "classes": ["flyer"]
         },
         {
             "id": "hero-villain",
@@ -2199,7 +2199,7 @@
             "short-effect": "Recover actions are automatically successful. Not affected by darkness.",
             "weapon-mod": [
                 {
-                    "name": "claw",
+                    "name": "claws",
                     "purchasable": "true"
                 },
                 {
