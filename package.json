@@ -1,6 +1,6 @@
 {
-  "name": "sword-weridos-warband-uilder",
-  "version": "0.1.1",
+  "name": "sword-weirdos-warband-builder",
+  "version": "0.0.2",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
